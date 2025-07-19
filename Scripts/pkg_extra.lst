@@ -1,60 +1,60 @@
-# --------------------------------------------------- // System
-# downgrade                                            # downgrade packages
-# trash-cli-git                                        # cli to manage trash files
-# libinput-gestures                                    # actions touchpad gestures using libinput
-# gestures                                             # gui for libinput-gestures
-wttrbar                                                # for weather
-python-requests|wttrbar                                # script dependency
-ddcui                                                  # GUI to control brightness for external monitors
-# hyprgui-bin                                          # GUI for hyprland configuration // might mess your userprefs but convenient // Just disappeared
-# power-profiles-daemon                                # for managing power profiles from waybar
+# --------------------------------------------------- // System // 系统组件
+# downgrade                                            # downgrade packages // 降级软件包
+# trash-cli-git                                        # cli to manage trash files // 命令行管理回收站文件
+# libinput-gestures                                    # actions touchpad gestures using libinput // 使用libinput的触摸板手势操作
+# gestures                                             # gui for libinput-gestures // libinput-gestures的图形界面
+wttrbar                                                # for weather // 天气显示工具
+python-requests|wttrbar                                # script dependency // 脚本依赖
+ddcui                                                  # GUI to control brightness for external monitors // 控制外接显示器亮度的图形界面
+# hyprgui-bin                                          # GUI for hyprland configuration // might mess your userprefs but convenient // Just disappeared // hyprland配置的图形界面（可能影响用户偏好但很方便）
+# power-profiles-daemon                                # for managing power profiles from waybar // 从waybar管理电源配置文件
 
-# --------------------------------------------------- // Shell
-
-
-# --------------------------------------------------- // Misc
-xdg-desktop-portal-gtk                                 # xdg desktop portal using gtk
-wf-recorder                                          # Screen recorder for wlroots-based compositors such as sway
-# emote                                                # emoji picker gtk3
-# wl-screenrec                                         # High performance hardware accelerated wlroots screen recorder // NO support for NVIDIA
-
-# --------------------------------------------------- // Gaming
-steam                                                  # gaming platform
-gamemode                                               # daemon and library for game optimizations
-mangohud                                               # system performance overlay
-# gamescope                                            # micro-compositor for gaming
-# lutris                                               # Lutris is an open source gaming platform for Linux
-
-# --------------------------------------------------- // Music
-cava                                                   # audio visualizer
-spotify                                                # proprietary music streaming service
-spicetify-cli                                          # cli to customize spotify client
-
-# --------------------------------------------------- // Apps
-# neovim                                               # vim based text editor
-
-# --------------------------------------------------- // Shell
-# --------------------------------------------------- // zsh
-# oh-my-zsh-git|zsh                                      # Optional plugin manager for zsh
-# pokemon-colorscripts-git|zsh                           # display pokemon sprites (optional)
-# pokego-bin|zsh                                         # display pokemon sprites in terminal (written GO)
-# zsh-theme-powerlevel10k-git|zsh                        # Powerlevel10k is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
-bat|zsh                                                  # enhanced version of cat
-eza|zsh                                                  # file lister for zsh
-duf|zsh                                                  # prettier version of df for zsh
+# --------------------------------------------------- // Shell // Shell相关
 
 
-# --------------------------------------------------- // Editor
-# vscodium                                              # Full oss text editor
-# vscodium-marketplace|vscodium                         # VSCodium marketplace
-# code-marketplace|code                                 # Code-Oss marketplace
-# visual-studio-code-bin                                # MS  text editor
+# --------------------------------------------------- // Misc // 杂项
+xdg-desktop-portal-gtk                                 # xdg desktop portal using gtk // 使用gtk的xdg桌面门户
+wf-recorder                                          # Screen recorder for wlroots-based compositors such as sway // 基于wlroots的合成器（如sway）的屏幕录制器
+# emote                                                # emoji picker gtk3 // gtk3表情选择器
+# wl-screenrec                                         # High performance hardware accelerated wlroots screen recorder // NO support for NVIDIA // 高性能硬件加速wlroots屏幕录制器（不支持NVIDIA）
 
-# --------------------------------------------------- // Backends
-#electron                                              # electron backend
+# --------------------------------------------------- // Gaming // 游戏
+steam                                                  # gaming platform // 游戏平台
+gamemode                                               # daemon and library for game optimizations // 游戏优化的守护进程和库
+mangohud                                               # system performance overlay // 系统性能覆盖层
+# gamescope                                            # micro-compositor for gaming // 游戏微合成器
+# lutris                                               # Lutris is an open source gaming platform for Linux // Lutris是Linux的开源游戏平台
 
-# --------------------------------------------------- // Lockscreen
-#swaylock-effects-git                                   # swaylock with effects // very minimal lockscreen
+# --------------------------------------------------- // Music // 音乐
+cava                                                   # audio visualizer // 音频可视化工具
+spotify                                                # proprietary music streaming service // 专有音乐流媒体服务
+spicetify-cli                                          # cli to customize spotify client // 自定义spotify客户端的命令行工具
 
-# --------------------------------------------------- // OSD
-swayosd-git                                             #A GTK based on screen display for keyboard shortcuts like caps-lock and volume
+# --------------------------------------------------- // Apps // 应用程序
+neovim                                               # vim based text editor // 基于vim的文本编辑器
+
+# --------------------------------------------------- // Shell // Shell相关
+# --------------------------------------------------- // zsh // zsh相关
+# oh-my-zsh-git|zsh                                      # Optional plugin manager for zsh // zsh的可选插件管理器
+# pokemon-colorscripts-git|zsh                           # display pokemon sprites (optional) // 显示宝可梦精灵（可选）
+# pokego-bin|zsh                                         # display pokemon sprites in terminal (written GO) // 在终端显示宝可梦精灵（用GO编写）
+# zsh-theme-powerlevel10k-git|zsh                        # Powerlevel10k is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience. // Powerlevel10k是Zsh的主题，强调速度、灵活性和开箱即用的体验
+bat|zsh                                                  # enhanced version of cat // cat的增强版本
+eza|zsh                                                  # file lister for zsh // zsh的文件列表工具
+duf|zsh                                                  # prettier version of df for zsh // zsh的df美化版本
+
+
+# --------------------------------------------------- // Editor // 编辑器
+# vscodium                                              # Full oss text editor // 完整的开源文本编辑器
+# vscodium-marketplace|vscodium                         # VSCodium marketplace // VSCodium市场
+# code-marketplace|code                                 # Code-Oss marketplace // Code-Oss市场
+# visual-studio-code-bin                                # MS  text editor // 微软文本编辑器
+
+# --------------------------------------------------- // Backends // 后端
+#electron                                              # electron backend // electron后端
+
+# --------------------------------------------------- // Lockscreen // 锁屏
+#swaylock-effects-git                                   # swaylock with effects // very minimal lockscreen // 带效果的swaylock（非常简约的锁屏）
+
+# --------------------------------------------------- // OSD // 屏幕显示
+swayosd-git                                             #A GTK based on screen display for keyboard shortcuts like caps-lock and volume // 基于GTK的屏幕显示，用于键盘快捷键如大写锁定和音量
