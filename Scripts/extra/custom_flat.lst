@@ -1,48 +1,52 @@
-# ------------------------------------------- // System
-com.github.tchx84.Flatseal                     # Flatseal
-io.github.flattool.Warehouse                   # Warehouse
-org.gnome.Boxes                                # Boxes
-io.missioncenter.MissionCenter                 # MissionCenter
-io.gitlab.adhami3310.Impression                # Impression
-# com.usebottles.bottles                       # Bottles
-# io.github.dimtpap.coppwr                     # Coppwr
+# ------------------------------------------- // System // 系统组件
+com.github.tchx84.Flatseal                     # Flatseal // Flatpak权限管理工具
+io.github.flattool.Warehouse                   # Warehouse // Flatpak软件包管理器
+org.gnome.Boxes                                # Boxes // GNOME虚拟机管理器
+io.missioncenter.MissionCenter                 # MissionCenter // 系统监控中心
+io.gitlab.adhami3310.Impression                # Impression // 屏幕录制工具
+# com.usebottles.bottles                       # Bottles // Wine应用程序管理器
+# io.github.dimtpap.coppwr                     # Coppwr // 电源管理工具
 
-# ------------------------------------------- // Browser
-# com.brave.Browser                              # Brave
-# org.torproject.torbrowser-launcher           # Tor
+# ------------------------------------------- // Browser // 浏览器
+# com.brave.Browser                              # Brave // Brave浏览器
+# org.torproject.torbrowser-launcher           # Tor // Tor浏览器启动器
 
-# ------------------------------------------- // Social
-# org.signal.Signal                            # Signal
-# com.discordapp.Discord                       # Discord
-# dev.vencord.Vesktop                          # Vesktop
-io.github.spacingbat3.webcord                  # Webcord
+# ------------------------------------------- // Social // 社交
+# org.signal.Signal                            # Signal // Signal加密通讯应用
+# com.discordapp.Discord                       # Discord // Discord聊天应用
+# dev.vencord.Vesktop                          # Vesktop // Discord客户端
+io.github.spacingbat3.webcord                  # Webcord // Discord Web客户端
 
-# ------------------------------------------- // Productivity
-# md.obsidian.Obsidian                         # Obsidian
-# org.mozilla.Thunderbird                      # Thunderbird
-# io.github.alainm23.planify                   # Planify
+# ------------------------------------------- // Productivity // 生产力工具
+# md.obsidian.Obsidian                         # Obsidian // 知识管理工具
+# org.mozilla.Thunderbird                      # Thunderbird // 邮件客户端
+# io.github.alainm23.planify                   # Planify // 任务管理工具
 
-# ------------------------------------------- // Image/Graphics
-org.inkscape.Inkscape                          # Inkscape
-org.kde.krita                                  # Krita
-org.gimp.GIMP                                  # Gimp
-org.blender.Blender                            # Blender
-io.gitlab.theevilskeleton.Upscaler             # ImageUpscaler
+# ------------------------------------------- // Image/Graphics // 图像/图形
+org.inkscape.Inkscape                          # Inkscape // 矢量图形编辑器
+org.kde.krita                                  # Krita // 数字绘画软件
+org.gimp.GIMP                                  # Gimp // 图像编辑软件
+org.blender.Blender                            # Blender // 3D建模和动画软件
+io.gitlab.theevilskeleton.Upscaler             # ImageUpscaler // 图像放大工具
 
-# ------------------------------------------- // Photography
-# org.gnome.Shotwell                           # Shotwell
-# org.darktable.Darktable                      # Darktable
-# org.kde.digikam                              # Digikam
-org.gnome.eog                                  # ImageViewer
+# ------------------------------------------- // Photography // 摄影
+# org.gnome.Shotwell                           # Shotwell // 照片管理器
+# org.darktable.Darktable                      # Darktable // RAW图像处理软件
+# org.kde.digikam                              # Digikam // 专业照片管理软件
+org.gnome.eog                                  # ImageViewer // 图像查看器
 
-# ------------------------------------------- // Audio/Video
-# com.spotify.Client                           # Spotify
-# org.kde.kdenlive                             # Kdenlive
-com.obsproject.Studio                          # Obs
-com.github.rafostar.Clapper                    # Clapper
-com.github.unrud.VideoDownloader               # VideoDownloader
+# ------------------------------------------- // Audio/Video // 音频/视频
+# com.spotify.Client                           # Spotify // Spotify音乐客户端
+# org.kde.kdenlive                             # Kdenlive // 视频编辑软件
+com.obsproject.Studio                          # Obs // 直播和录制软件
+com.github.rafostar.Clapper                    # Clapper // 视频播放器
+com.github.unrud.VideoDownloader               # VideoDownloader // 视频下载工具
 
-# ------------------------------------------- // Gaming
-# hu.kramo.Cartridges                          # Cartridges
-# com.github.Matoking.protontricks             # ProtonTricks
-# net.davidotek.pupgui2                        # ProtonUp
+# ------------------------------------------- // Gaming // 游戏
+# hu.kramo.Cartridges                          # Cartridges // 游戏启动器
+# com.github.Matoking.protontricks             # ProtonTricks // Proton工具
+# net.davidotek.pupgui2                        # ProtonUp // Proton游戏管理器
+
+# ------------------------------------------- // Calculator // 计算器
+it.mijorus.smile                               # smile // 表情符号计算器
+org.gnome.Calculator                           # Calculator // GNOME计算器
