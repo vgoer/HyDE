@@ -3,6 +3,7 @@
 #|--/ /-| Global functions |--/ /-|#
 #|-/ /--| Prasanth Rangan  |-/ /--|#
 #|/ /---+------------------+/ /---|#
+# 全局函数
 
 set -e
 
@@ -20,6 +21,9 @@ export cacheDir
 export aurList
 export shlList
 
+# 检查包是否已安装
+# 参数: $1 - 包名
+# 返回: 0-已安装, 1-未安装
 pkg_installed() {
     local PkgIn=$1
 
@@ -30,6 +34,9 @@ pkg_installed() {
     fi
 }
 
+# 检查列表中是否有已安装的包
+# 参数: $1 - 变量名, $2+ - 包名列表
+# 返回: 0-找到已安装包, 1-未找到已安装包
 chk_list() {
     vrType="$1"
     local inList=("${@:2}")
@@ -45,6 +52,9 @@ chk_list() {
     return 1
 }
 
+# 检查包是否在官方仓库中可用
+# 参数: $1 - 包名
+# 返回: 0-可用, 1-不可用
 pkg_available() {
     local PkgIn=$1
 
@@ -55,6 +65,9 @@ pkg_available() {
     fi
 }
 
+# 检查包是否在AUR仓库中可用
+# 参数: $1 - 包名
+# 返回: 0-可用, 1-不可用
 aur_available() {
     local PkgIn=$1
 
@@ -66,6 +79,10 @@ aur_available() {
     fi
 }
 
+# 检测NVIDIA显卡并提供相关信息
+# 参数: --verbose 显示详细GPU信息
+#       --drivers 显示推荐驱动
+# 返回: 0-检测到NVIDIA显卡, 1-未检测到
 nvidia_detect() {
     readarray -t dGPU < <(lspci -k | grep -E "(VGA|3D)" | awk -F ': ' '{print $NF}')
     if [ "${1}" == "--verbose" ]; then
@@ -87,6 +104,10 @@ nvidia_detect() {
     fi
 }
 
+# 带倒计时的用户输入提示
+# 参数: $1 - 倒计时秒数
+#       $2 - 提示消息
+# 输出: promptIn 变量中存储用户输入
 prompt_timer() {
     set +e
     unset PROMPT_INPUT
@@ -101,6 +122,8 @@ prompt_timer() {
     echo ""
     set -e
 }
+
+# 打印日志
 print_log() {
     local executable="${0##*/}"
     local logFile="${cacheDir}/logs/${HYDE_LOG}/${executable}"
