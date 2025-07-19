@@ -1,86 +1,86 @@
-# --------------------------------------------------- // System
-pipewire                                               # audio/video server
-pipewire-alsa                                          # pipewire alsa client
-pipewire-audio                                         # pipewire audio client
-pipewire-jack                                          # pipewire jack client
-pipewire-pulse                                         # pipewire pulseaudio client
-gst-plugin-pipewire                                    # pipewire gstreamer client
-wireplumber                                            # pipewire session manager
-pavucontrol                                            # pulseaudio volume control
-pamixer                                                # pulseaudio cli mixer
-networkmanager                                         # network manager
-network-manager-applet                                 # network manager system tray utility
-bluez                                                  # bluetooth protocol stack
-bluez-utils                                            # bluetooth utility cli
-blueman                                                # bluetooth manager gui
-brightnessctl                                          # screen brightness control
-playerctl                                              # media controls
-udiskie                                                # manage removable media
+# --------------------------------------------------- // System // 系统组件
+pipewire                                               # audio/video server // 音频/视频服务器
+pipewire-alsa                                          # pipewire alsa client // pipewire alsa客户端
+pipewire-audio                                         # pipewire audio client // pipewire音频客户端
+pipewire-jack                                          # pipewire jack client // pipewire jack客户端
+pipewire-pulse                                         # pipewire pulseaudio client // pipewire pulseaudio客户端
+gst-plugin-pipewire                                    # pipewire gstreamer client // pipewire gstreamer插件
+wireplumber                                            # pipewire session manager // pipewire会话管理器
+pavucontrol                                            # pulseaudio volume control // pulseaudio音量控制
+pamixer                                                # pulseaudio cli mixer // pulseaudio命令行混音器
+networkmanager                                         # network manager // 网络管理器
+network-manager-applet                                 # network manager system tray utility // 网络管理器系统托盘工具
+bluez                                                  # bluetooth protocol stack // 蓝牙协议栈
+bluez-utils                                            # bluetooth utility cli // 蓝牙命令行工具
+blueman                                                # bluetooth manager gui // 蓝牙管理器图形界面
+brightnessctl                                          # screen brightness control // 屏幕亮度控制
+playerctl                                              # media controls // 媒体控制
+udiskie                                                # manage removable media // 管理可移动媒体
 
-# --------------------------------------------------- // Display Manager
-sddm                                                   # display manager for KDE plasma
-qt5-quickcontrols                                      # for sddm theme ui elements
-qt5-quickcontrols2                                     # for sddm theme ui elements
-qt5-graphicaleffects                                   # for sddm theme effects
+# --------------------------------------------------- // Display Manager // 显示管理器
+sddm                                                   # display manager for KDE plasma // KDE plasma显示管理器
+qt5-quickcontrols                                      # for sddm theme ui elements // sddm主题UI元素支持
+qt5-quickcontrols2                                     # for sddm theme ui elements // sddm主题UI元素支持
+qt5-graphicaleffects                                   # for sddm theme effects // sddm主题效果支持
 
-# --------------------------------------------------- // Window Manager
-hyprland                                               # wlroots-based wayland compositor
-dunst                                                  # notification daemon
-rofi-wayland                                           # application launcher
-waybar                                                 # system bar
-swww                                                   # wallpaper
-hyprlock                                               # lock screen
-wlogout                                                # logout menu
-grim                                                   # screenshot tool
-hyprpicker                                             # color picker
-slurp                                                  # region select for screenshot/screenshare
-satty                                                  # Modern Screenshot Annotation
-cliphist                                               # clipboard manager
-wl-clip-persist                                        # Keep Wayland clipboard even after programs close (avoids crashes)
-hyprsunset                                             # blue light filter
+# --------------------------------------------------- // Window Manager // 窗口管理器
+hyprland                                               # wlroots-based wayland compositor // 基于wlroots的wayland合成器
+dunst                                                  # notification daemon // 通知守护进程
+rofi-wayland                                           # application launcher // 应用程序启动器
+waybar                                                 # system bar // 系统状态栏
+swww                                                   # wallpaper // 壁纸管理器
+hyprlock                                               # lock screen // 锁屏工具
+wlogout                                                # logout menu // 注销菜单
+grim                                                   # screenshot tool // 截图工具
+hyprpicker                                             # color picker // 颜色选择器
+slurp                                                  # region select for screenshot/screenshare // 截图/屏幕共享区域选择
+satty                                                  # Modern Screenshot Annotation // 现代截图标注工具
+cliphist                                               # clipboard manager // 剪贴板管理器
+wl-clip-persist                                        # Keep Wayland clipboard even after programs close (avoids crashes) // 保持Wayland剪贴板内容（避免崩溃）
+hyprsunset                                             # blue light filter // 蓝光过滤器
 
-# --------------------------------------------------- // Dependencies
-polkit-gnome                                           # authentication agent
-xdg-desktop-portal-hyprland                            # xdg desktop portal for hyprland
-xdg-desktop-portal-gtk                                 # file picker and dbus  integration
-xdg-user-dirs                                          # Manage user directories like ~/Desktop and ~/Music
-pacman-contrib                                         # for system update check
-parallel                                               # for parallel processing
-jq                                                     # for json processing
-imagemagick                                            # for image processing
-qt5-imageformats                                       # for dolphin image thumbnails
-ffmpegthumbs                                           # for dolphin video thumbnails
-kde-cli-tools                                          # for dolphin file type defaults
-libnotify                                              # for notifications
-noto-fonts-emoji                                       # emoji font
+# --------------------------------------------------- // Dependencies // 依赖项
+polkit-gnome                                           # authentication agent // 认证代理
+xdg-desktop-portal-hyprland                            # xdg desktop portal for hyprland // hyprland的xdg桌面门户
+xdg-desktop-portal-gtk                                 # file picker and dbus integration // 文件选择器和dbus集成
+xdg-user-dirs                                          # Manage user directories like ~/Desktop and ~/Music // 管理用户目录如~/Desktop和~/Music
+pacman-contrib                                         # for system update check // 系统更新检查工具
+parallel                                               # for parallel processing // 并行处理工具
+jq                                                     # for json processing // JSON处理工具
+imagemagick                                            # for image processing // 图像处理工具
+qt5-imageformats                                       # for dolphin image thumbnails // dolphin图像缩略图支持
+ffmpegthumbs                                           # for dolphin video thumbnails // dolphin视频缩略图支持
+kde-cli-tools                                          # for dolphin file type defaults // dolphin文件类型默认设置
+libnotify                                              # for notifications // 通知支持
+noto-fonts-emoji                                       # emoji font // emoji字体
 
-# --------------------------------------------------- // Theming
-nwg-look                                               # gtk configuration tool
-qt5ct                                                  # qt5 configuration tool
-qt6ct                                                  # qt6 configuration tool
-kvantum                                                # svg based qt6 theme engine
-kvantum-qt5                                            # svg based qt5 theme engine
-qt5-wayland                                            # wayland support in qt5
-qt6-wayland                                            # wayland support in qt6
+# --------------------------------------------------- // Theming // 主题相关
+nwg-look                                               # gtk configuration tool // GTK配置工具
+qt5ct                                                  # qt5 configuration tool // Qt5配置工具
+qt6ct                                                  # qt6 configuration tool // Qt6配置工具
+kvantum                                                # svg based qt6 theme engine // 基于SVG的Qt6主题引擎
+kvantum-qt5                                            # svg based qt5 theme engine // 基于SVG的Qt5主题引擎
+qt5-wayland                                            # wayland support in qt5 // Qt5的Wayland支持
+qt6-wayland                                            # wayland support in qt6 // Qt6的Wayland支持
 
-# --------------------------------------------------- // Applications
-firefox                                                # browser
-kitty                                                  # terminal
-dolphin                                                # kde file manager
-ark                                                    # kde file archiver
-unzip                                                  # extracting zip files
-vim                                                    # terminal text editor
-code                                                   # ide text editor
-nwg-displays                                           # monitor management utility
-fzf                                                    # Command-line fuzzy finder
+# --------------------------------------------------- // Applications // 应用程序
+firefox                                                # browser // 浏览器
+kitty                                                  # terminal // 终端模拟器
+dolphin                                                # kde file manager // KDE文件管理器
+ark                                                    # kde file archiver // KDE文件压缩工具
+unzip                                                  # extracting zip files // 解压zip文件
+vim                                                    # terminal text editor // 终端文本编辑器
+code                                                   # ide text editor // IDE文本编辑器
+nwg-displays                                           # monitor management utility // 显示器管理工具
+fzf                                                    # Command-line fuzzy finder // 命令行模糊查找器
 
-# --------------------------------------------------- // Shell
-starship|zsh                                           # customizable shell prompt written in Rust
-# starship-git                                         # The cross-shell prompt for astronauts  
-eza|fish                                               # file lister for fish
-starship|fish                                          # customizable shell prompt
-duf|fish                                               # prettier version of df for fish
-fastfetch                                              # system information fetch tool
+# --------------------------------------------------- // Shell // Shell相关
+starship|zsh                                           # customizable shell prompt written in Rust // 用Rust编写的可定制shell提示符
+# starship-git                                         # The cross-shell prompt for astronauts // 跨shell提示符工具
+eza|fish                                               # file lister for fish // fish的文件列表工具
+starship|fish                                          # customizable shell prompt // 可定制shell提示符
+duf|fish                                               # prettier version of df for fish // fish的df美化版本
+fastfetch                                              # system information fetch tool // 系统信息获取工具
 
-# --------------------------------------------------- // HyDE
-hypridle                                               # idle daemon
+# --------------------------------------------------- // HyDE // HyDE专用
+hypridle                                               # idle daemon // 空闲守护进程
