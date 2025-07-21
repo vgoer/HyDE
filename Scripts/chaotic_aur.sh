@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
+# Chaotic AUR安装脚本 - 安装和管理Chaotic AUR仓库
 
 #! REQUIRED ROOT
-execName="$0 $*"
-rootOpts=("--install" "--purge" "--revert" "fresh") #? List Of Flags that needs to be in sudo
-vertL="$(printf '=%.0s' $(seq 1 "$(tput cols)"))"
+execName="$0 $*"                                                    # 执行命令名称
+rootOpts=("--install" "--purge" "--revert" "fresh")                # 需要root权限的标志列表
+vertL="$(printf '=%.0s' $(seq 1 "$(tput cols)"))"                  # 分隔线
 
+# 创建带边框的消息显示函数
 box_me() {
     local s="Hyde: $*"
     tput setaf 3
@@ -14,6 +16,7 @@ box_me() {
     tput sgr0
 }
 
+# 检查是否以root权限运行
 check_Root() {
     if [ "$EUID" -ne 0 ]; then
         echo "Error: [ $execName ] must be run as root!"
@@ -21,13 +24,17 @@ check_Root() {
     fi
 }
 
+# 检查网络连接
 check_Ping() {
     if ! ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
         box_me "Error: No internet connection."
         exit 1
     fi
 }
+
+# 写入或移除Chaotic AUR配置到pacman.conf
 write_ChaoticAUR() {
+    # 检查Chaotic AUR是否已在pacman.conf中
     is_ChaoticAUR=$(
         grep "chaotic-aur" /etc/pacman.conf >/dev/null 2>&1
         echo $?
@@ -54,7 +61,9 @@ write_ChaoticAUR() {
     fi
 }
 
+# 检查Chaotic AUR完整性
 check_Integrity() {
+    # 检查pacman.conf中的条目
     is_ChaoticAUR=$(
         grep "chaotic-aur" /etc/pacman.conf >/dev/null 2>&1
         echo $?
@@ -65,16 +74,19 @@ check_Integrity() {
         return 1
     fi
 
+    # 检查密钥
     if ! pacman-key -l | grep 3056513887B78AEB >/dev/null; then
         echo "Chaotic AUR key not found"
         return 1
     fi
 
+    # 检查密钥环包
     if ! pacman -Qq chaotic-keyring 2>/dev/null; then
         echo "Chaotic AUR keyring not found"
         return 1
     fi
 
+    # 检查镜像列表包
     if ! pacman -Qq chaotic-mirrorlist 2>/dev/null; then
         echo "Chaotic AUR mirrorlist not found"
         return 1
@@ -83,7 +95,9 @@ check_Integrity() {
     return 0
 }
 
+# 安装Chaotic AUR
 install() {
+    # 错误处理函数
     handle_error() {
         tput setaf 1
         echo "ERROR :: Failed to install Chaotic AUR"
@@ -93,6 +107,7 @@ install() {
         exit 1
     }
 
+    # 安装密钥
     box_me "Installing the key"
     pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com || {
         box_me "Failed to install the key"
@@ -103,23 +118,27 @@ install() {
         handle_error
     }
 
+    # 下载密钥环
     box_me "Downloading the keyring"
     pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' || {
         box_me "Failed to download the keyring"
         handle_error
     }
 
+    # 下载镜像列表
     box_me "Downloading the mirrorlist"
     pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' || {
         box_me "Failed to download the mirrorlist"
         handle_error
     }
 
+    # 写入pacman.conf配置
     write_ChaoticAUR "append" || {
         box_me "Failed to append Chaotic AUR"
         handle_error
     }
 
+    # 刷新镜像列表
     box_me "Refreshing the mirrorlists"
     pacman -Sy || {
         box_me "Failed to refresh the mirrorlists"
@@ -129,31 +148,39 @@ install() {
     box_me "Chaotic-AUR has been successfully installed!"
 }
 
+# 完全移除Chaotic AUR
 purge() {
+    # 删除密钥
     if pacman-key -l | grep 3056513887B78AEB >/dev/null; then
         box_me "Deleting the key"
         pacman-key --delete EF925EA60F33D0CB85C44AD13056513887B78AEB
     fi
 
+    # 卸载密钥环包
     if pacman -Qq chaotic-keyring 2>/dev/null; then
         box_me "Uninstalling the keyring"
         pacman -Rns --noconfirm chaotic-keyring
     fi
 
+    # 卸载镜像列表包
     if pacman -Qq chaotic-mirrorlist 2>/dev/null; then
         box_me "Uninstalling the mirrorlist"
         pacman -Rns --noconfirm chaotic-mirrorlist
     fi
 
+    # 从pacman.conf中移除配置
     write_ChaoticAUR "remove"
 
+    # 刷新镜像列表
     box_me "Refreshing the mirrorlists"
     pacman -Sy
 
     box_me "Chaotic-AUR has been successfully purged"
 }
 
+# 将Chaotic AUR包转换为AUR包
 revertAUR() {
+    # 获取所有Chaotic AUR包
     to_be_Reverted_AUR="$(pacman -Qmq | grep chaotic-aur)"
 
     box_me "Revert Chaotic AUR to AUR Packages"
@@ -164,6 +191,7 @@ revertAUR() {
         exit 0
     fi
 
+    # 询问用户是否继续
     echo -e "Do you wish to reinstall your old Chaotic-AUR packages from AUR?\nThe following packages will be affected:\n$to_be_Reverted_AUR"
     echo -n "Proceed? [Y/n] "
     read ans
@@ -173,6 +201,7 @@ revertAUR() {
         exit 0
     fi
 
+    # 逐个转换包
     for chaoticPackage in $to_be_Reverted_AUR; do
         convertedPackage="$(echo "$chaoticPackage" | sed 's/chaotic-aur/aur/')"
 
@@ -188,6 +217,7 @@ revertAUR() {
     exit 0
 }
 
+# 全新安装界面
 fresh() {
     clear
     echo "Detected: Arch Linux"

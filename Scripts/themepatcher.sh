@@ -3,7 +3,9 @@
 #|--/ /-| Script to patch custom theme |--/ /-|#
 #|-/ /--| kRHYME7                      |-/ /--|#
 #|/ /---+------------------------------+/ /---|#
+# 主题补丁脚本 - 应用自定义主题
 
+# 打印提示信息的函数
 print_prompt() {
     [[ "${verbose}" == "false" ]] && return 0
     while (("$#")); do
@@ -11,35 +13,35 @@ print_prompt() {
         -r)
             echo -ne "\e[31m$2\e[0m"
             shift 2
-            ;; # Red
+            ;; # 红色
         -g)
             echo -ne "\e[32m$2\e[0m"
             shift 2
-            ;; # Green
+            ;; # 绿色
         -y)
             echo -ne "\e[33m$2\e[0m"
             shift 2
-            ;; # Yellow
+            ;; # 黄色
         -b)
             echo -ne "\e[34m$2\e[0m"
             shift 2
-            ;; # Blue
+            ;; # 蓝色
         -m)
             echo -ne "\e[35m$2\e[0m"
             shift 2
-            ;; # Magenta
+            ;; # 洋红色
         -c)
             echo -ne "\e[36m$2\e[0m"
             shift 2
-            ;; # Cyan
+            ;; # 青色
         -w)
             echo -ne "\e[37m$2\e[0m"
             shift 2
-            ;; # White
+            ;; # 白色
         -n)
             echo -ne "\e[96m$2\e[0m"
             shift 2
-            ;; # Neon
+            ;; # 霓虹色
         *)
             echo -ne "$1"
             shift
@@ -49,6 +51,7 @@ print_prompt() {
     echo ""
 }
 
+# 获取脚本目录并导入全局函数
 scrDir=$(dirname "$(realpath "$0")")
 # shellcheck disable=SC1091
 # if [ $? -ne 0 ]; then
@@ -57,10 +60,10 @@ if ! source "${scrDir}/global_fn.sh"; then
     exit 1
 fi
 
-verbose="${4}"
-set +e
+verbose="${4}"  # 详细模式标志
+set +e          # 禁用错误退出
 
-# error function
+# 显示帮助信息的函数
 ask_help() {
     cat <<HELP
 Usage:
@@ -92,11 +95,13 @@ Note:
 HELP
 }
 
+# 检查参数
 if [[ -z $1 || -z $2 ]]; then
     ask_help
     exit 1
 fi
 
+# Wallbash目录列表
 wallbashDirs=(
     "$HOME/.config/hyde/wallbash"
     "$HOME/.local/share/hyde/wallbash"
@@ -104,23 +109,27 @@ wallbashDirs=(
     "/usr/share/hyde/wallbash"
 )
 
-# set parameters
-Fav_Theme="$1"
+# 设置参数
+Fav_Theme="$1"  # 主题名称
 
+# 处理主题目录或Git仓库
 if [ -d "$2" ]; then
-    Theme_Dir="$2"
+    Theme_Dir="$2"  # 本地目录
 else
-    Git_Repo=${2%/}
+    Git_Repo=${2%/}  # Git仓库URL
     if echo "$Git_Repo" | grep -q "/tree/"; then
+        # 提取分支名
         branch=${Git_Repo#*tree/}
         Git_Repo=${Git_Repo%/tree/*}
     else
+        # 获取可用分支列表
         branches=$(curl -s "https://api.github.com/repos/${Git_Repo#*://*/}/branches" | jq -r '.[].name')
         # shellcheck disable=SC2206
         branches=($branches)
         if [[ ${#branches[@]} -le 1 ]]; then
             branch=${branches[0]}
         else
+            # 让用户选择分支
             echo "Select a Branch"
             select branch in "${branches[@]}"; do
                 [[ -n $branch ]] && break || echo "Invalid selection. Please try again."
@@ -128,15 +137,18 @@ else
         fi
     fi
 
+    # 设置Git相关变量
     Git_Path=${Git_Repo#*://*/}
     Git_Owner=${Git_Path%/*}
     branch_dir=${branch//\//_}
     cacheDir=${cacheDir:-"$HOME/.cache/hyde"}
     Theme_Dir="${cacheDir}/themepatcher/${branch_dir}-${Git_Owner}"
 
+    # 检查目录是否存在
     if [ -d "$Theme_Dir" ]; then
         print_prompt "Directory $Theme_Dir already exists. Using existing directory."
         if cd "$Theme_Dir"; then
+            # 更新现有仓库
             git fetch --all &>/dev/null
             git reset --hard "@{upstream}" &>/dev/null
             cd - &>/dev/null || exit
@@ -145,6 +157,7 @@ else
         fi
     else
         print_prompt "Directory $Theme_Dir does not exist. Cloning repository into new directory."
+        # 克隆新仓库
         if ! git clone -b "$branch" --depth 1 "$Git_Repo" "$Theme_Dir" &>/dev/null; then
             print_prompt "Git clone failed"
             exit 1
@@ -154,13 +167,15 @@ fi
 
 print_prompt "Patching" -g " --// ${Fav_Theme} //-- " "from " -b "${Theme_Dir}\n"
 
+# 检查主题目录是否存在
 Fav_Theme_Dir="${Theme_Dir}/Configs/.config/hyde/themes/${Fav_Theme}"
 [ ! -d "${Fav_Theme_Dir}" ] && print_prompt -r "[ERROR] " "'${Fav_Theme_Dir}'" -y " Do not Exist" && exit 1
 
-# config=$(find "${dcolDir}" -type f -name "*.dcol" | awk -v favTheme="${Fav_Theme}" -F 'theme/' '{gsub(/\.dcol$/, ".theme"); print ".config/hyde/themes/" favTheme "/" $2}')
+# 查找配置文件
 config=$(find "${wallbashDirs[@]}" -type f -path "*/theme*" -name "*.dcol" 2>/dev/null | awk '!seen[substr($0, match($0, /[^/]+$/))]++' | awk -v favTheme="${Fav_Theme}" -F 'theme/' '{gsub(/\.dcol$/, ".theme"); print ".config/hyde/themes/" favTheme "/" $2}')
 restore_list=""
 
+# 检查配置文件是否存在
 while IFS= read -r fileCheck; do
     if [[ -e "${Theme_Dir}/Configs/${fileCheck}" ]]; then
         print_prompt -g "[found] " "${fileCheck}"
@@ -171,27 +186,29 @@ while IFS= read -r fileCheck; do
         print_prompt -y "[warn] " "${fileCheck} --> do not exist in ${Theme_Dir}/Configs/"
     fi
 done <<<"$config"
+
+# 检查主题颜色文件
 if [ -f "${Fav_Theme_Dir}/theme.dcol" ]; then
     print_prompt -n "[note] " "found theme.dcol to override wallpaper dominant colors"
     restore_list+="Y|Y|\${HOME}/.config/hyde/themes/${Fav_Theme}|theme.dcol|hyprland\n"
 fi
 readonly restore_list
 
-# Get Wallpapers
+# 获取壁纸文件
 wallpapers=$(
     find "${Fav_Theme_Dir}" -type f \( -iname "*.gif" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) ! -path "*/logo/*"
 )
 wpCount="$(wc -l <<<"${wallpapers}")"
 { [ -z "${wallpapers}" ] && print_prompt -r "[ERROR] " "No wallpapers found" && exit_flag=true; } || { readonly wallpapers && print_prompt -g "\n[OK] " "wallpapers :: [count] ${wpCount} (.gif+.jpg+.jpeg+.png)"; }
 
-# Get logos
+# 获取Logo文件
 if [ -d "${Fav_Theme_Dir}/logo" ]; then
     logos=$(find "${Fav_Theme_Dir}/logo" -type f \( -iname "*.gif" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \))
     logosCount="$(wc -l <<<"${logos}")"
     { [ -z "${logos}" ] && print_prompt -y "[warn] " "No logos found"; } || { readonly logos && print_prompt -g "[OK] " "logos :: [count] ${logosCount}\n"; }
 fi
 
-# parse thoroughly 😁
+# 解析压缩包函数
 check_tars() {
     local trVal
     local inVal="${1}"

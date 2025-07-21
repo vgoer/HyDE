@@ -3,7 +3,9 @@
 #|--/ /-| Script to remove HyDE configs |--/ /-|#
 #|-/ /--| Prasanth Rangan               |-/ /--|#
 #|/ /---+-------------------------------+/ /---|#
+# HyDE卸载脚本 - 移除HyDE配置文件
 
+# 显示警告信息
 cat <<"EOF"
 
 -------------------------------------------------
@@ -22,9 +24,11 @@ cat <<"EOF"
 please type "DONT HYDE" to continue...
 EOF
 
+# 用户确认
 read -r PROMPT_INPUT
 [ "${PROMPT_INPUT}" == "DONT HYDE" ] || exit 0
 
+# 显示卸载标题
 cat <<"EOF"
 
          _         _       _ _
@@ -35,6 +39,7 @@ cat <<"EOF"
 
 EOF
 
+# 获取脚本目录并导入全局函数
 scrDir=$(dirname "$(realpath "$0")")
 source "${scrDir}/global_fn.sh"
 if [ $? -ne 0 ]; then
@@ -42,37 +47,45 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# 设置配置文件列表路径
 CfgLst="${scrDir}/restore_cfg.lst"
 if [ ! -f "${CfgLst}" ]; then
     echo "ERROR: '${CfgLst}' does not exist..."
     exit 1
 fi
 
+# 创建备份目录（用于保存被移除的配置文件）
 BkpDir="${HOME}/.config/cfg_backups/$(date +'%y%m%d_%Hh%Mm%Ss')_remove"
 mkdir -p "${BkpDir}"
 
+# 读取配置文件列表并移除配置文件
 cat "${CfgLst}" | while read lst; do
-    pth=$(echo "${lst}" | awk -F '|' '{print $3}')
-    pth=$(eval echo "${pth}")
-    cfg=$(echo "${lst}" | awk -F '|' '{print $4}')
+    # 解析配置行
+    pth=$(echo "${lst}" | awk -F '|' '{print $3}')  # 路径
+    pth=$(eval echo "${pth}")                       # 展开路径变量
+    cfg=$(echo "${lst}" | awk -F '|' '{print $4}')  # 配置文件
 
+    # 处理每个配置文件
     echo "${cfg}" | xargs -n 1 | while read -r cfg_chk; do
         [[ -z "${pth}" ]] && continue
+        # 如果配置文件存在，移动到备份目录
         if [ -d "${pth}/${cfg_chk}" ] || [ -f "${pth}/${cfg_chk}" ]; then
-            tgt=$(echo "${pth}" | sed "s+^${HOME}++g")
+            tgt=$(echo "${pth}" | sed "s+^${HOME}++g")  # 移除HOME路径前缀
             if [ ! -d "${BkpDir}${tgt}" ]; then
                 mkdir -p "${BkpDir}${tgt}"
             fi
-            mv "${pth}/${cfg_chk}" "${BkpDir}${tgt}"
+            mv "${pth}/${cfg_chk}" "${BkpDir}${tgt}"  # 移动文件到备份目录
             echo -e "\033[0;34m[removed]\033[0m ${pth}/${cfg_chk}"
         fi
     done
 done
 
-[ -d "$HOME/.config/hyde" ] && rm -rf "$HOME/.config/hyde"
-[ -d "$HOME/.cache/hyde" ] && rm -rf "$HOME/.cache/hyde"
-[ -d "$HOME/.local/state/hyde" ] && rm -rf "$HOME/.local/state/hyde"
+# 移除HyDE相关目录
+[ -d "$HOME/.config/hyde" ] && rm -rf "$HOME/.config/hyde"      # 配置目录
+[ -d "$HOME/.cache/hyde" ] && rm -rf "$HOME/.cache/hyde"        # 缓存目录
+[ -d "$HOME/.local/state/hyde" ] && rm -rf "$HOME/.local/state/hyde"  # 状态目录
 
+# 显示手动操作说明
 cat <<"NOTE"
 -------------------------------------------------------
 .: Manual action required to complete uninstallation :.
